@@ -18,10 +18,17 @@ for DISTRIBUTION in ${!DISTRIBUTIONS[@]}; do
     echo "####"
     echo "# Aptly Mirror - $DISTRIBUTION-$PRODUCT"
     echo "####"
+    # If upstream repo uses `./` as repo directory, add the path to the mirror URI
+    if [ "${REPO_DIRECTORY}" == "./" ]; then
+        URI="${MIRROR}/${DISTRIBUTIONS[$DISTRIBUTION]}"
+    else
+        URI="${MIRROR}"
+        REPO_DIRECTORY="${DISTRIBUTIONS[$DISTRIBUTION]}/"
+    fi
     aptly mirror show $DISTRIBUTION-$PRODUCT >/dev/null 2>&1 || \
         aptly mirror create -filter="${FILTER}" -architectures=amd64 \
             -with-sources=${WITH_SOURCES:-true} \
-            $DISTRIBUTION-$PRODUCT $MIRROR ./${DISTRIBUTIONS[$DISTRIBUTION]}/
+            $DISTRIBUTION-$PRODUCT $URI $REPO_DIRECTORY
 
     echo "####"
     echo "# Aptly update - $DISTRIBUTION-$PRODUCT"

@@ -13,16 +13,16 @@ else
     exit 1
 fi
 
-ENDPOINT=${ENDPOINT:-"filesystem:mirror"}
+ENDPOINT=${ENDPOINT:-"filesystem:nightly"}
 
 for DISTRIBUTION in ${!DISTRIBUTIONS[@]}; do
     for COMPONENT in ${DISTRIBUTIONS[$DISTRIBUTION]}; do
       if [[ -n ${PRODUCT} ]]; then
           MIRROR_NAME=${DISTRIBUTION}-${PRODUCT}-${COMPONENT}
-          PREFIX="${PRODUCT}/nightly/${DISTRIBUTION}"
+          PREFIX="${PRODUCT}/${DISTRIBUTION}"
       else
           MIRROR_NAME=${DISTRIBUTION}-${COMPONENT}
-          PREFIX="${CONFIG}/nightly"
+          PREFIX="${CONFIG}"
       fi
 
       echo "####"

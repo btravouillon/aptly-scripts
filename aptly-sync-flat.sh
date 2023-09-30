@@ -12,7 +12,7 @@ else
     exit 1
 fi
 
-ENDPOINT=${ENDPOINT:-"filesystem:mirror"}
+ENDPOINT=${ENDPOINT:-"filesystem:nightly"}
 
 for DISTRIBUTION in ${!DISTRIBUTIONS[@]}; do
     echo "####"
@@ -43,7 +43,7 @@ for DISTRIBUTION in ${!DISTRIBUTIONS[@]}; do
     echo "###"
     echo "# Aptly publish - $DISTRIBUTION-$PRODUCT"
     echo "###"
-    PREFIX="${PRODUCT}/nightly/${DISTRIBUTIONS[$DISTRIBUTION]}"
+    PREFIX="${PRODUCT}/${DISTRIBUTIONS[$DISTRIBUTION]}"
     if aptly publish show $DISTRIBUTION-$PRODUCT ${ENDPOINT}:${PREFIX}; then
         aptly publish switch $DISTRIBUTION-$PRODUCT ${ENDPOINT}:${PREFIX} $DISTRIBUTION-$PRODUCT-$TAG
     else

@@ -52,7 +52,7 @@ for DISTRIBUTION in ${!DISTRIBUTIONS[@]}; do
     echo "# Aptly publish - $DISTRIBUTION"
     echo "###"
     if aptly publish show ${DISTRIBUTION} ${ENDPOINT}:${PREFIX}; then
-        aptly publish switch -component=${DISTRIBUTIONS[$DISTRIBUTION]// /,} \
+        aptly publish switch -force-overwrite -component=${DISTRIBUTIONS[$DISTRIBUTION]// /,} \
             ${DISTRIBUTION} ${ENDPOINT}:${PREFIX} ${SNAPSHOTS}
     else
         aptly publish snapshot -component=${DISTRIBUTIONS[$DISTRIBUTION]// /,} \

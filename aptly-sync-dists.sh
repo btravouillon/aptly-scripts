@@ -4,7 +4,7 @@
 set -e
 
 CONFIG=${1:-debian}
-TAG=${2:-$(date +%Y%m%d%H%M)}
+TAG=${2:-$(date +%Y%m%d)}
 
 if [ -f "${BASH_SOURCE%/*}/config/dists/aptly-${CONFIG}.conf" ]; then
     source "${BASH_SOURCE%/*}/config/dists/aptly-${CONFIG}.conf"

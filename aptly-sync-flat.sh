@@ -45,7 +45,7 @@ for DISTRIBUTION in ${!DISTRIBUTIONS[@]}; do
     echo "###"
     PREFIX="${PRODUCT}/${DISTRIBUTIONS[$DISTRIBUTION]}"
     if aptly publish show $DISTRIBUTION-$PRODUCT ${ENDPOINT}:${PREFIX}; then
-        aptly publish switch $DISTRIBUTION-$PRODUCT ${ENDPOINT}:${PREFIX} $DISTRIBUTION-$PRODUCT-$TAG
+        aptly publish switch -force-overwrite $DISTRIBUTION-$PRODUCT ${ENDPOINT}:${PREFIX} $DISTRIBUTION-$PRODUCT-$TAG
     else
         aptly publish snapshot -distribution=$DISTRIBUTION-$PRODUCT $DISTRIBUTION-$PRODUCT-$TAG ${ENDPOINT}:${PREFIX}
     fi
